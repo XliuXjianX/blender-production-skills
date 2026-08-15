@@ -1,0 +1,5 @@
+interface:
+  display_name: "Blender 变形绑定"
+  short_description: "选择并执行原生变形修改器、曲线、骨骼、约束与驱动流程"
+  default_prompt: "Use $blender-deformation-rigging to choose and build the correct deformation, rig, or constraint system."
+

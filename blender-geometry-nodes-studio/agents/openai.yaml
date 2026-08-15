@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender 几何节点工程"
+  short_description: "构建、审计和整理高性能 Blender 几何节点图"
+  default_prompt: "Use $blender-geometry-nodes-studio to build a modular, performant Geometry Nodes system with a readable graph."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Lighting Analysis"
+  short_description: "Analyze reference light and build accountable lighting"
+  default_prompt: "Use $blender-lighting-analysis to infer the reference lighting and build a disciplined Blender light rig."

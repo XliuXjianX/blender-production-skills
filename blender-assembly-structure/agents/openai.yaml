@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Assembly Structure"
+  short_description: "Build modular assemblies with measured snapping and interfaces"
+  default_prompt: "Use -assembly-structure to assemble these Blender parts with real interfaces, modular origins, and measured precision placement."

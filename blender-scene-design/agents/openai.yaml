@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Scene Design"
+  short_description: "Plan Blender hierarchy, depth, flow, and detail budgets"
+  default_prompt: "Use $blender-scene-design to define a compact visual design intent before Blender construction."

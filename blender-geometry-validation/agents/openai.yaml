@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Geometry Validation"
+  short_description: "Validate required geometry without visual-only proxies"
+  default_prompt: "Use $blender-geometry-validation to audit required Blender geometry, relationships, and protected scene state."

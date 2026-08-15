@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Direct Surface Modeling"
+  short_description: "Build topology, Boolean openings, and Displace relief"
+  default_prompt: "Use -direct-surface-modeling to construct this asset with deliberate topology, Boolean volume logic, and validated surface geometry."

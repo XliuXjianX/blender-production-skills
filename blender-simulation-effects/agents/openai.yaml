@@ -1,0 +1,5 @@
+interface:
+  display_name: "Blender 模拟特效"
+  short_description: "搭建并验证布料、软体、刚体、流体、粒子、海洋与破碎效果"
+  default_prompt: "Use $blender-simulation-effects to design, test, and validate the requested Blender simulation or physical effect."
+
