@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Production Router"
+  short_description: "Route shape grammar to native Blender construction systems"
+  default_prompt: "Use $blender-production-router to create or refine an editable Blender scene with appropriate production gates."

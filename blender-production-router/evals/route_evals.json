@@ -1,0 +1,577 @@
+[
+  {
+    "id": "bend-ring",
+    "request": "把这个有足够分段的长条弯成完整环形",
+    "expected_selected": "simple_deform",
+    "must_forbid": ["manual_per-segment_rotation"]
+  },
+  {
+    "id": "curve-hose",
+    "request": "让软管沿曲线路径变形并保持截面",
+    "expected_selected": "curve_deform"
+  },
+  {
+    "id": "lattice-product",
+    "request": "用晶格对多个外壳做柔和整体变形",
+    "expected_selected": "lattice_deform"
+  },
+  {
+    "id": "surface-deform",
+    "request": "让装饰网格通过 Surface Deform 跟随动画表面",
+    "expected_selected": "mesh_or_surface_deform"
+  },
+  {
+    "id": "shrinkwrap",
+    "request": "把重拓扑网格贴合表面并保持偏移",
+    "expected_selected": "shrinkwrap"
+  },
+  {
+    "id": "armature",
+    "request": "给机械手臂建立骨骼和机械约束",
+    "expected_selected": "armature_constraints"
+  },
+  {
+    "id": "cloth-drape",
+    "request": "让布料自然盖在椅子上并产生重力褶皱",
+    "expected_selected": "cloth",
+    "must_forbid": ["hand-modeled_gravity_folds"]
+  },
+  {
+    "id": "soft-cushion",
+    "request": "制作软垫被物体挤压后的软体弹性变形",
+    "expected_selected": "soft_body"
+  },
+  {
+    "id": "rigid-fall",
+    "request": "让箱子真实坠落并与地面碰撞滚动",
+    "expected_selected": "rigid_body",
+    "must_forbid": ["manual_static_impact_pose"]
+  },
+  {
+    "id": "rigid-constraint",
+    "request": "制作可断裂关节和刚体约束",
+    "expected_selected": "rigid_body_constraints"
+  },
+  {
+    "id": "fracture",
+    "request": "让混凝土墙受到撞击后碎裂坍塌",
+    "expected_selected": "fracture",
+    "must_forbid": ["few_hand-modeled_chunks_as_realistic_destruction"]
+  },
+  {
+    "id": "fluid",
+    "request": "制作液体流动碰撞并产生飞溅",
+    "expected_selected": "fluid"
+  },
+  {
+    "id": "smoke",
+    "request": "创建会受到障碍物影响的烟雾模拟",
+    "expected_selected": "fluid"
+  },
+  {
+    "id": "dynamic-paint",
+    "request": "用动态绘制让脚印留下湿润痕迹",
+    "expected_selected": "dynamic_paint"
+  },
+  {
+    "id": "ocean",
+    "request": "制作大海海面和深海波浪",
+    "expected_selected": "ocean"
+  },
+  {
+    "id": "ocean-wave-layer",
+    "request": "海洋需要大海波浪和局部水波涟漪",
+    "expected_selected": "ocean",
+    "expected_candidates": ["wave"]
+  },
+  {
+    "id": "wave",
+    "request": "让局部水波从接触点传播",
+    "expected_selected": "wave"
+  },
+  {
+    "id": "fish-school",
+    "request": "创建会避让障碍物的鱼群 Boids 群集运动",
+    "expected_selected": "particles_and_boids",
+    "must_forbid": ["one_object_and_keyframes_per_actor"]
+  },
+  {
+    "id": "fireflies",
+    "request": "用大量实例制作围绕灯笼飞行的萤火虫",
+    "expected_selected": "geometry_nodes_instances",
+    "expected_specialists": ["blender-geometry-nodes-studio"],
+    "must_forbid": ["hundreds_of_independent_mesh_objects"]
+  },
+  {
+    "id": "gn-simulation",
+    "request": "使用模拟区制作随时间生长的自定义群体行为",
+    "expected_selected": "geometry_nodes_simulation",
+    "expected_specialists": ["blender-geometry-nodes-studio"]
+  },
+  {
+    "id": "array-fence",
+    "request": "用阵列制作规则重复的栅栏",
+    "expected_selected": "array_instances"
+  },
+  {
+    "id": "scatter-vegetation",
+    "request": "在地形上散布大量植被实例",
+    "expected_selected": "geometry_nodes_instances"
+  },
+  {
+    "id": "rain",
+    "request": "用大量实例制作雨和火花",
+    "expected_selected": "geometry_nodes_instances"
+  },
+  {
+    "id": "bridge-loops",
+    "request": "把两组边环桥接并焊接顶点形成连续曲面",
+    "expected_selected": "bridge_and_weld",
+    "must_forbid": ["deep_overlap_as_seamless_connection"]
+  },
+  {
+    "id": "boolean-hole",
+    "request": "用 Boolean 在机械外壳开孔",
+    "expected_selected": "boolean_construction"
+  },
+  {
+    "id": "organic-fusion",
+    "request": "用 Voxel Remesh 和雕刻完成有机融合",
+    "expected_selected": "voxel_remesh_sculpt"
+  },
+  {
+    "id": "subdivision-shell",
+    "request": "制作圆润产品外壳和稳定的细分曲面高光",
+    "expected_selected": "subdivision_control_cage"
+  },
+  {
+    "id": "material-noise",
+    "request": "给材质增加粗糙度变化和微小划痕",
+    "expected_selected": "shader_nodes",
+    "must_forbid": ["geometry_nodes_for_material_noise"]
+  },
+  {
+    "id": "inverted-hull-outline",
+    "request": "给角色建立会跟随变形的几何节点反向外壳动漫描边",
+    "expected_selected": "inverted_hull_outline",
+    "expected_skill": "blender-npr-eevee",
+    "must_forbid": ["noise_without_position_or_normal_field"]
+  },
+  {
+    "id": "camera-line-art",
+    "request": "使用 Line Art 提取场景遮挡线、交线和折角线",
+    "expected_selected": "camera_line_art",
+    "must_forbid": ["inverted_hull_as_scene_intersection_line_extractor"]
+  },
+  {
+    "id": "toon-shader-banding",
+    "request": "用 Shader to RGB 做二渲三卡通明暗色阶",
+    "expected_selected": "toon_shader_banding",
+    "expected_skill": "blender-npr-eevee",
+    "must_forbid": ["shader_to_rgb_in_cycles"]
+  },
+  {
+    "id": "cycles-raycast-outline",
+    "request": "在 Blender 5.2 Cycles 中用四方向 Shader Raycast 光线投射制作三渲二描边",
+    "expected_selected": "cycles_raycast_outline",
+    "expected_skill": "blender-npr-cycles",
+    "must_forbid": [
+      "shader_to_rgb_in_cycles",
+      "geometry_nodes_as_shader_raycast",
+      "scene_aware_raycast_without_intent"
+    ]
+  },
+  {
+    "id": "chair-regression",
+    "request": "正式建模一把椅子，Blockout 后不允许继续搭积木",
+    "expected_selected": "direct_mesh_editing",
+    "must_forbid": ["primitive_stacking_after_blockout"]
+  },
+  {
+    "id": "sword-regression",
+    "request": "精细建模一把剑并处理真实部件连接",
+    "expected_selected": "direct_mesh_editing",
+    "must_forbid": ["unclassified_visible_intersections"]
+  },
+  {
+    "id": "environment-regression",
+    "request": "建模完整车站环境并保持镜头外可查看",
+    "expected_selected": "direct_mesh_editing"
+  },
+  {
+    "id": "reference-bathhouse-regression",
+    "request": "按照参考图复刻这个老旧浴室画面并匹配材质、灯光和构图",
+    "expected_selected": "reference_reconstruction",
+    "expected_skill": "blender-reference-reconstruction",
+    "expected_deliverable": "environment",
+    "must_forbid": [
+      "low_confidence_hypothesis_as_fact",
+      "color_match_as_material_identity",
+      "manual_override_of_failed_reference_evidence",
+      "reference_image_implies_shot_only_scope",
+      "screen_space_match_as_spatial_proof"
+    ]
+  },
+  {
+    "id": "reference-navigable-station-space",
+    "request": "按照参考图重建完整可漫游车站空间，门洞后、楼梯顶部和镜头外结构必须真实连通",
+    "expected_selected": "reference_reconstruction",
+    "expected_skill": "blender-reference-reconstruction",
+    "expected_deliverable": "environment",
+    "must_forbid": [
+      "flat_dark_plane_as_unseen_space",
+      "unclassified_portal_or_hidden_space",
+      "early_camera_lock_before_spatial_hypothesis"
+    ]
+  },
+  {
+    "id": "reference-explicit-shot-only",
+    "request": "按照参考图只做主镜头的单张成片，镜头外不用完整建造",
+    "expected_selected": "reference_reconstruction",
+    "expected_skill": "blender-reference-reconstruction",
+    "expected_deliverable": "shot"
+  },
+  {
+    "id": "static-pipe-elbow-regression",
+    "request": "用旋绕制作连续的硬质管道弯头并焊接循环边",
+    "expected_selected": "profile_spin_or_loft",
+    "expected_skill": "blender-direct-surface-modeling",
+    "must_forbid": ["rotated_segment_overlap_as_elbow", "flat_shaded_visible_curve"]
+  },
+  {
+    "id": "contained-water-volume-regression",
+    "request": "制作浴盆中的水体和液体体积，包含吸收和水面响应",
+    "expected_selected": "water_material",
+    "expected_skill": "blender-material-surfacing",
+    "must_forbid": ["reflective_plane_as_water_volume", "fluid_simulation_for_unchanging_static_water"]
+  },
+  {
+    "id": "cloth-garment-production",
+    "request": "给动画角色制作布料衣服，处理缝合、固定顶点组、自碰撞和缓存",
+    "expected_selected": "cloth",
+    "expected_skill": "blender-simulation-effects",
+    "must_forbid": ["hand-modeled_gravity_folds"]
+  },
+  {
+    "id": "cloth-curtain-production",
+    "request": "让窗帘布料受重力和风自然下垂并与窗框碰撞",
+    "expected_selected": "cloth",
+    "expected_skill": "blender-simulation-effects"
+  },
+  {
+    "id": "dynamic-pouring-water",
+    "request": "使用流体模拟把水流倒进杯子并产生飞溅",
+    "expected_selected": "fluid",
+    "expected_skill": "blender-simulation-effects",
+    "must_forbid": ["static_mesh_as_dynamic_flow"]
+  },
+  {
+    "id": "brushed-metal-material",
+    "request": "给椅子制作真实的不锈钢拉丝金属材质和金属质感",
+    "expected_selected": "metal_material",
+    "expected_skill": "blender-material-surfacing",
+    "must_forbid": ["gray_color_plus_metallic_as_finished_metal", "isotropic_noise_as_brushed_metal"]
+  },
+  {
+    "id": "aged-wet-wood-material",
+    "request": "给桥面制作潮湿腐烂木板材质、木纹、端面和积水变化",
+    "expected_selected": "wood_material",
+    "expected_skill": "blender-material-surfacing",
+    "must_forbid": ["shared_box_projection_for_hero_boards", "uniform_black_gloss_as_wet_wood"]
+  },
+  {
+    "id": "generic-pbr-surfacing",
+    "request": "为这个资产制作真实材质和完整的PBR材质质感",
+    "expected_selected": "material_surfacing",
+    "expected_skill": "blender-material-surfacing",
+    "must_forbid": ["base_color_only_material", "one_noise_for_every_channel"]
+  },
+  {
+    "id": "boolean-cleanup-production",
+    "request": "用布尔开孔并清理布尔后的拓扑、细碎面和阴影问题",
+    "expected_selected": "boolean_construction",
+    "expected_skill": "blender-direct-surface-modeling",
+    "must_forbid": ["boolean_for_physical_contact"]
+  },
+  {
+    "id": "topology-surface-production",
+    "request": "通过点线面和拓扑调整制作细分曲面，不要添加新立方体补形",
+    "expected_selected": "subdivision_control_cage",
+    "expected_skill": "blender-direct-surface-modeling",
+    "must_forbid": ["primitive_stacking_after_blockout"]
+  },
+  {
+    "id": "fabric-shader-not-cloth-sim",
+    "request": "给现有衣服制作布料材质、织物纹理、粗糙度和纤维光泽，不修改动画",
+    "expected_selected": "material_surfacing",
+    "expected_skill": "blender-material-surfacing"
+  },
+  {
+    "id": "concrete-surfacing",
+    "request": "制作真实混凝土材质、骨料、孔洞、粗糙度和渗水痕迹",
+    "expected_selected": "material_surfacing",
+    "expected_skill": "blender-material-surfacing"
+  },
+  {
+    "id": "directional-curved-railing",
+    "request": "制作沿平台边缘弯曲的连续栏杆，立柱沿路径等距排列并保持支撑接触",
+    "expected_selected": "directional_structure",
+    "expected_skill": "blender-procedural-systems",
+    "expected_candidates": ["array_instances"],
+    "must_forbid": ["manual_patch_of_generated_directional_structure"]
+  },
+  {
+    "id": "directional-l-stair",
+    "request": "制作连接上下平台并且升降方向正确的L形楼梯、平台和扶手",
+    "expected_selected": "directional_structure",
+    "expected_skill": "blender-procedural-systems",
+    "must_forbid": ["independent_stair_and_handrail_guessing"]
+  },
+  {
+    "id": "reference-directional-structure",
+    "request": "按照参考图重建带转向楼梯和弯曲栏杆的完整空间",
+    "expected_selected": "reference_reconstruction",
+    "expected_skill": "blender-reference-reconstruction",
+    "expected_candidates": ["directional_structure"],
+    "must_forbid": ["manual_patch_of_generated_directional_structure", "camera_change_as_model_score_repair"]
+  },
+  {
+    "id": "assembly-hinged-door",
+    "request": "为设备门板制作真实铰链、转轴、安装结构和机械接缝",
+    "expected_selected": "assembly_structure",
+    "expected_skill": "blender-assembly-structure",
+    "expected_classes": ["object_assembly", "manufactured_interfaces"],
+    "must_forbid": [
+      "join_objects_as_topology_fusion",
+      "difficulty_as_part_boundary",
+      "penetrating_part_without_interface"
+    ]
+  },
+  {
+    "id": "lighting-shadow-analysis",
+    "request": "先做光照分析，根据阴影方向和阴影长度匹配阳光方向",
+    "expected_selected": "lighting_analysis",
+    "expected_skill": "blender-lighting-analysis",
+    "must_forbid": [
+      "extra_lights_before_gray_light_pass",
+      "lighting_as_geometry_concealment"
+    ]
+  },
+  {
+    "id": "join-is-not-weld-regression",
+    "request": "组装机械外壳，但 Join Objects 不能冒充连续拓扑融合",
+    "expected_selected": "assembly_structure",
+    "must_forbid": ["join_objects_as_topology_fusion"]
+  },
+  {
+    "id": "formal-topology-regression",
+    "request": "正式制作连续产品外壳，灰模后转成真实点线面拓扑和真实倒角",
+    "expected_selected": "subdivision_control_cage",
+    "must_forbid": [
+      "blockout_proxy_as_final_topology",
+      "primitive_only_formal_modeling",
+      "smooth_shading_or_weighted_normal_as_bevel"
+    ]
+  },
+  {
+    "id": "manufacturing-partition-regression",
+    "request": "按制造和装配关系拆分模型，不要按颜色块拆分",
+    "expected_selected": "assembly_structure",
+    "must_forbid": ["color_block_partition_as_part_graph"]
+  },
+  {
+    "id": "transition-before-detail-regression",
+    "request": "制作主体外壳的结构转折和连续过渡，之后才能添加功能件和细节",
+    "expected_selected": "direct_mesh_editing",
+    "must_forbid": ["detail_before_transition_forms"]
+  },
+  {
+    "id": "implicit-monolithic-doorway-boolean",
+    "request": "在一整块有厚度的墙体上创建可调宽高和门楣高度的门洞，然后安装门框",
+    "expected_selected": "architectural_opening",
+    "expected_skill": "blender-direct-surface-modeling",
+    "expected_candidates": ["boolean_construction"],
+    "expected_archetypes": ["subtractive_architectural_opening"],
+    "expected_archetype_methods": {
+      "subtractive_architectural_opening": "architectural_opening"
+    },
+    "expected_parameter_owner_terms": ["wall thickness", "opening cutter width"],
+    "must_forbid": [
+      "three_piece_opening_frame_as_solid_wall",
+      "coplanar_boolean_cutter"
+    ]
+  },
+  {
+    "id": "repeated-window-openings",
+    "request": "在同一整块外墙上制作八个等距连续窗洞，后续需要统一修改间距和数量",
+    "expected_selected": "architectural_opening",
+    "expected_candidates": ["array_instances", "boolean_construction"],
+    "expected_archetypes": [
+      "subtractive_architectural_opening",
+      "fixed_vector_repeated_modules"
+    ],
+    "must_forbid": [
+      "manual_duplicate_regular_modules",
+      "three_piece_opening_frame_as_solid_wall"
+    ]
+  },
+  {
+    "id": "separate-prefab-jamb-assembly-exception",
+    "request": "用独立预制过梁和左右门柱组装入口构件，每个构件需要单独制造和更换",
+    "expected_selected": "assembly_structure",
+    "expected_skill": "blender-assembly-structure",
+    "unexpected_candidates": ["architectural_opening"]
+  },
+  {
+    "id": "implicit-stair-array-flight",
+    "request": "制作一段连接上下平台的规则直楼梯，踏步数量和总升高以后还要调整",
+    "expected_selected": "directional_structure",
+    "expected_skill": "blender-procedural-systems",
+    "expected_candidates": ["array_instances"],
+    "expected_archetypes": ["regular_stair_flight"],
+    "expected_archetype_methods": {
+      "regular_stair_flight": "directional_structure"
+    },
+    "expected_parameter_owner_terms": ["total rise run count", "landing anchors"],
+    "must_forbid": [
+      "manual_duplicate_regular_steps",
+      "independent_step_transform_patch"
+    ]
+  },
+  {
+    "id": "implicit-curve-molding",
+    "request": "沿房间转角制作连续踢脚线，使用可编辑路径并保持统一截面",
+    "expected_selected": "curve_profile_construction",
+    "expected_skill": "blender-procedural-systems",
+    "expected_candidates": ["curve_deform"],
+    "expected_archetypes": ["continuous_path_profile"],
+    "expected_parameter_owner_terms": ["ordered path", "profile object"],
+    "must_forbid": ["overlapping_segments_as_continuous_sweep"]
+  },
+  {
+    "id": "implicit-bezier-cable",
+    "request": "用贝塞尔曲线制作一根可编辑的连续电缆，截面粗细和路径都能修改",
+    "expected_selected": "curve_profile_construction",
+    "expected_candidates": ["curve_deform"],
+    "expected_archetypes": ["continuous_path_profile"],
+    "must_forbid": ["manual_path_segment_placement"]
+  },
+  {
+    "id": "implicit-modular-face-snapping",
+    "request": "把模块墙板通过面吸附精确对齐到连接平面，并保持规定缝隙",
+    "expected_selected": "precision_snapping",
+    "expected_skill": "blender-assembly-structure",
+    "expected_candidates": ["shrinkwrap"],
+    "expected_archetypes": ["one_time_precision_placement"],
+    "expected_parameter_owner_terms": ["target element", "offset"],
+    "must_forbid": ["eyeballed_alignment_when_semantic_snap_exists"]
+  },
+  {
+    "id": "persistent-conformity-not-one-time-snap",
+    "request": "使用 Shrinkwrap 让徽标持续贴合会变形的表面，目标变化后仍然跟随",
+    "expected_selected": "shrinkwrap",
+    "expected_skill": "blender-deformation-rigging"
+  },
+  {
+    "id": "implicit-displace-terrain",
+    "request": "用置换修改器制作会改变轮廓的地形起伏，并明确纹理坐标和真实高度",
+    "expected_selected": "displace_surface",
+    "expected_skill": "blender-direct-surface-modeling",
+    "expected_archetypes": ["sampled_geometric_relief"],
+    "expected_parameter_owner_terms": ["topology density", "midlevel strength"],
+    "must_forbid": [
+      "displacement_without_sufficient_topology",
+      "undeclared_displacement_coordinates"
+    ]
+  },
+  {
+    "id": "micro-bump-does-not-route-displace",
+    "request": "制作真实材质质感和微小粗糙度变化，只影响高光和微法线，不改变模型轮廓",
+    "expected_selected": "material_surfacing",
+    "expected_skill": "blender-material-surfacing",
+    "unexpected_candidates": ["displace_surface"]
+  },
+  {
+    "id": "implicit-louver-array",
+    "request": "制作一排等距百叶，后续需要统一调整数量、间距和源百叶尺寸",
+    "expected_selected": "array_instances",
+    "expected_skill": "blender-procedural-systems",
+    "expected_archetypes": ["fixed_vector_repeated_modules"],
+    "expected_parameter_owner_terms": ["source module", "offset vector"],
+    "must_forbid": ["manual_duplicate_regular_modules"],
+    "expected_local_asset_library_status": "not_requested",
+    "unexpected_specialists": ["blender-local-asset-library"]
+  },
+  {
+    "id": "curved-railing-native-dependencies",
+    "request": "制作沿弯曲平台边缘的连续栏杆和等距立柱，平台路径改变后全部跟随更新",
+    "expected_selected": "directional_structure",
+    "expected_candidates": ["curve_profile_construction", "array_instances"],
+    "expected_archetypes": ["directional_rail_system"],
+    "expected_parameter_owner_terms": ["supported edge", "arc length"],
+    "must_forbid": [
+      "overlapping_segments_as_continuous_sweep",
+      "independent_post_placement_on_curve"
+    ]
+  },
+  {
+    "id": "portal-scene-design-array-stairs",
+    "request": "设计一个完整的超现实门户环境，用河流引导视线，楼梯连接近景门户和远景，并保持可编辑数量与升高",
+    "expected_selected": "directional_structure",
+    "expected_skill": "blender-procedural-systems",
+    "expected_specialists": ["blender-scene-design"],
+    "expected_design_owner": "blender-scene-design",
+    "expected_native_system": "ARRAY",
+    "must_forbid": [
+      "manual_duplicate_regular_steps",
+      "independent_step_transform_patch"
+    ]
+  },
+  {
+    "id": "original-asset-scene-design",
+    "request": "原创设计一个可以转台查看的完整产品资产，先定义主视觉、结构层级、真实几何范围和性能预算",
+    "expected_selected": "direct_mesh_editing",
+    "expected_specialists": ["blender-scene-design"],
+    "expected_design_owner": "blender-scene-design",
+    "expected_native_system": "MESH_DATA"
+  },
+  {
+    "id": "explicit-local-node-library",
+    "request": "Use the Blueish local asset library for an adaptive Geometry Nodes curve distribution.",
+    "expected_selected": "geometry_nodes_instances",
+    "expected_skill": "blender-procedural-systems",
+    "expected_specialists": [
+      "blender-local-asset-library",
+      "blender-geometry-nodes-studio"
+    ],
+    "expected_native_system": "GEOMETRY_NODES",
+    "expected_local_asset_library_status": "available",
+    "expected_local_asset_library_origin": "user_explicit"
+  },
+  {
+    "id": "hard-surface-boolean-owner",
+    "request": "Create a normal architectural door opening in one monolithic wall; use a Boolean cutter.",
+    "expected_selected": "architectural_opening",
+    "expected_skill": "blender-direct-surface-modeling",
+    "expected_native_system": "BOOLEAN",
+    "expected_node_candidate": null,
+    "expected_local_asset_library_status": "not_requested",
+    "unexpected_specialists": ["blender-local-asset-library"],
+    "unexpected_candidates": [
+      "geometry_nodes_instances"
+    ]
+  },
+  {
+    "id": "implicit-field-driven-curve-system",
+    "request": "Distribute several source modules along a curve with adaptive per-point mask variation and stable IDs.",
+    "expected_selected": "geometry_nodes_instances",
+    "expected_skill": "blender-procedural-systems",
+    "expected_specialists": [
+      "blender-local-asset-library",
+      "blender-geometry-nodes-studio"
+    ],
+    "expected_native_system": "GEOMETRY_NODES",
+    "expected_local_asset_library_status": "available",
+    "expected_local_asset_library_origin": "router_node_candidate"
+  }
+]

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blender 真实材质制作"
+  short_description: "构建并验证金属、木材、水体、湿润层与常见真实表面材质工作流"
+  default_prompt: "Use $blender-material-surfacing to build and validate a physically coherent Blender material for this asset."
+policy:
+  allow_implicit_invocation: true

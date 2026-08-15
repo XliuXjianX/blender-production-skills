@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Local Asset Library"
+  short_description: "Search and validate reusable local Blender node assets."
+  default_prompt: "Use $blender-local-asset-library to inspect compatible local Blender assets without importing them, then explain whether one improves the approved production route."

@@ -1,0 +1,535 @@
+schema_version: "1.0"
+cards:
+  - id: reference_reconstruction
+    category: supervision
+    supported_versions: ">=5.1"
+    use_when: [image-defined spatial reconstruction, environment connectivity from reference, camera-constrained visible-frame match, material identity from reference]
+    do_not_use_when: [no visual reference, purely procedural asset with no fixed appearance target]
+    prerequisites: [original-resolution reference, explicit deliverable, writable artifact directory]
+    primary_system: Spatial hypothesis, reference evidence artifacts, provisional camera solve, and visual comparison gates
+    alternatives: [manual art direction brief]
+    failure_signs: [reference automatically treated as shot-only, convenient object guesses, screen-space match with impossible depth, disconnected portals, wrong material category, attractive but mismatched render, unresolved blocking uncertainty]
+    validation: [Gate R0 spatial artifact validation, camera and cross-view blockout, region connectivity, camera overlay, semantic material review, final difference evidence]
+    official_sources: []
+
+  - id: direct_mesh_editing
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [unique static silhouette, controlled topology, local extrusion or inset]
+    do_not_use_when: [time-dependent physical result, large repeated distribution]
+    prerequisites: [valid scale, semantic region selection]
+    primary_system: BMesh and Mesh API
+    alternatives: [Subdivision Surface, Sculpt]
+    failure_signs: [unstable raw indices, thin faces, broken normals]
+    validation: [topology audit, multiview silhouette]
+    official_sources: ["https://docs.blender.org/api/current/bmesh.html"]
+
+  - id: subdivision_control_cage
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [smooth product shell, controlled curvature, low-density editable cage]
+    do_not_use_when: [unrepaired Boolean topology, flat architectural slab]
+    prerequisites: [deliberate edge flow, valid symmetry seam]
+    primary_system: Subdivision Surface
+    alternatives: [Multiresolution, bevel-based hard surface]
+    failure_signs: [pinching, curvature dents, excessive support loops]
+    validation: [reflective highlight review, cage density report]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/generate/subdivision_surface.html"]
+
+  - id: boolean_construction
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [hard cuts, volume union, repeatable cutter workflow]
+    do_not_use_when: [physical contact only, uncontrolled coplanar surfaces]
+    prerequisites: [closed volumes, valid transforms, explicit cutter role]
+    primary_system: Boolean Modifier
+    alternatives: [direct topology edit, voxel remesh]
+    failure_signs: [internal faces, shading artifacts, tiny sliver faces]
+    validation: [manifold audit, evaluated shading review]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/generate/booleans.html"]
+
+  - id: architectural_opening
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [doorway or window opening in one monolithic wall, archway, wall niche, through-thickness portal]
+    do_not_use_when: [separate lintel and jamb construction, open sheet requiring direct edge flow, physical door leaf assembly]
+    prerequisites: [closed host volume, through-thickness closed cutter, declared reveal and wall thickness]
+    primary_system: Boolean Difference with semantic host and cutter
+    alternatives: [Inset and Extrude for open topology, Boolean followed by retopology]
+    failure_signs: [three-piece wall substitute, coplanar cutter, missing reveal, Boolean slivers, floating frame]
+    validation: [host and cutter ownership, evaluated opening dimensions, reveal thickness, topology and shading audit]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/modeling/modifiers/generate/booleans.html"
+      - "https://docs.blender.org/api/current/bpy.types.BooleanModifier.html"
+
+  - id: voxel_remesh_sculpt
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [organic volume fusion, sculpt blockout, topology-independent form search]
+    do_not_use_when: [manufactured seam, animation-ready final topology]
+    prerequisites: [appropriate voxel size, preserved source checkpoint]
+    primary_system: Voxel Remesh and Sculpt
+    alternatives: [Boolean Union, Multiresolution]
+    failure_signs: [lost silhouette, melted edges, excessive density]
+    validation: [volume and silhouette comparison, retopology gate]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/sculpt_paint/sculpting/tool_settings/remesh.html"]
+
+  - id: bridge_and_weld
+    category: connection
+    supported_versions: ">=5.1"
+    use_when: [two open loops must become one continuous surface]
+    do_not_use_when: [mechanical seam, physical contact]
+    prerequisites: [compatible loop ordering, intentional boundary]
+    primary_system: Bridge Edge Loops and Merge
+    alternatives: [manual quad reconstruction, voxel remesh]
+    failure_signs: [twisted bridge, unmatched counts, normal discontinuity]
+    validation: [boundary gap, adjacent normal angle, manifold audit]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/meshes/editing/edge/bridge_edge_loops.html"]
+
+  - id: simple_deform
+    category: deformation
+    supported_versions: ">=5.1"
+    use_when: [regular bend, twist, taper, stretch]
+    do_not_use_when: [arbitrary path, highly local deformation]
+    prerequisites: [correct local axis, origin, sufficient segments]
+    primary_system: Simple Deform Modifier
+    alternatives: [Curve, Lattice]
+    failure_signs: [wrong axis, section twisting, seam mismatch]
+    validation: [extreme-angle test, section preservation]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/simple_deform.html"]
+
+  - id: curve_deform
+    category: deformation
+    supported_versions: ">=5.1"
+    use_when: [path-following geometry, cable, hose, repeated units on a path]
+    do_not_use_when: [single regular bend with no path]
+    prerequisites: [matched deform axis, applied transforms, curve direction]
+    primary_system: Curve Modifier or Curve Geometry
+    alternatives: [Simple Deform, Geometry Nodes]
+    failure_signs: [offset origin, flipped path, uneven scale]
+    validation: [path adherence, cross-section twist]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/curve.html"]
+
+  - id: curve_profile_construction
+    category: procedural
+    supported_versions: ">=5.1"
+    use_when: [continuous rail, pipe, cable, hose, molding, trim, constant profile following a path]
+    do_not_use_when: [existing mesh must deform, profile changes require field logic, static elbow requires controlled welded topology]
+    prerequisites: [ordered path, declared local frame, bevel depth or profile object, path and profile resolution]
+    primary_system: Bezier or NURBS Curve Geometry with bevel depth or bevel object
+    alternatives: [Curve Modifier, Array plus Curve, Curve to Mesh Geometry Nodes, Spin or Bridge]
+    failure_signs: [profile twist, reversed path, faceting, tight-radius self-intersection, overlapping straight segments]
+    validation: [path continuity, profile orientation, endpoint fit, twist and faceting review]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/modeling/curves/properties/geometry.html"
+      - "https://docs.blender.org/api/current/bpy.types.Curve.html#bpy.types.Curve.bevel_object"
+
+  - id: directional_structure
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [stairs, ramps, escalators, curved railings, handrails, path-driven structural systems]
+    do_not_use_when: [single decorative object with no ordered path or elevation relationship]
+    prerequisites: [ordered endpoints, world up axis, ascent or travel direction, landing or supported edge, control path, real scale]
+    primary_system: Semantic path or flight skeleton followed by direct mesh, Curve, Array, or Geometry Nodes generation
+    alternatives: [direct mesh editing, Curve-to-Mesh, Array Modifier, Geometry Nodes instances]
+    failure_signs: [reversed ascent, wrong bend side, disconnected landing, profile twist, floating supports, hand-patched generated members]
+    validation: [camera top and side views, endpoint ownership, ascent direction, supported edge, local frame, contact and clearance]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/modeling/curves/index.html"
+      - "https://docs.blender.org/manual/en/5.2/modeling/modifiers/generate/array.html"
+      - "https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/curve/index.html"
+
+  - id: assembly_structure
+    category: assembly
+    supported_versions: ">=5.1"
+    use_when: [manufactured assemblies, moving parts, hinges, mounts, seams, embedded components, object hierarchy]
+    do_not_use_when: [one continuous shell requiring shared mesh topology]
+    prerequisites: [approved Part Graph, separation reasons, combination levels, scale, interface requirements]
+    primary_system: Separate semantic objects with mating surfaces, pivots, parenting, constraints, collections, and clearances
+    alternatives: [topology fusion, collection instances, armature constraints]
+    failure_signs: [Join treated as weld, deep penetration without a receiver, decorative fasteners, unexplained mesh islands]
+    validation: [part boundaries, interfaces, clearances, hierarchy, pivots, constraints, intersections]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/scene_layout/object/editing/parent.html"
+      - "https://docs.blender.org/manual/en/5.2/animation/constraints/index.html"
+
+  - id: lighting_analysis
+    category: lighting
+    supported_versions: ">=5.1"
+    use_when: [reference lighting match, daylight, shadow direction, interior illumination, accountable production lighting]
+    do_not_use_when: [topology review light only, material-independent utility preview]
+    prerequisites: [accepted gray geometry, shadow evidence, scale estimate, color-management decision]
+    primary_system: One Sun plus low World gray-light solve followed by evidence-based bounce and practical sources
+    alternatives: [HDRI with documented source evidence, emissive geometry, area-light bounce approximation]
+    failure_signs: [many unexplained lights, conflicting shadows, rim light without source, lighting hides bad geometry]
+    validation: [shadow direction length softness, dark-side luminance, light roles, loss-if-removed, exposure]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/render/lights/light_object.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/background.html"
+
+  - id: profile_spin_or_loft
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [static pipe elbow, revolved profile, matched loops requiring a controlled curved transition]
+    do_not_use_when: [flexible hose following an editable path, time-dependent deformation]
+    prerequisites: [applied scale, compatible loop counts, explicit bend center and radius]
+    primary_system: Spin or Bridge Edge Loops with welded boundaries
+    alternatives: [Bezier curve converted to mesh, Screw modifier]
+    failure_signs: [rotated overlapping segments, pinched bend, faceted silhouette, disconnected boundary rings]
+    validation: [single connected component, shared vertices, cross-section preservation, smooth-by-angle review]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/meshes/tools/spin.html", "https://docs.blender.org/manual/en/5.2/modeling/meshes/editing/edge/bridge_edge_loops.html"]
+
+  - id: lattice_deform
+    category: deformation
+    supported_versions: ">=5.1"
+    use_when: [smooth regional deformation, shared deformation of multiple objects]
+    do_not_use_when: [precise hinge, physical soft response]
+    prerequisites: [lattice coverage, semantic vertex group]
+    primary_system: Lattice Modifier
+    alternatives: [Mesh Deform, proportional editing]
+    failure_signs: [uncovered vertices, unexpected global motion]
+    validation: [boundary preservation, deformation range]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/lattice.html"]
+
+  - id: mesh_or_surface_deform
+    category: deformation
+    supported_versions: ">=5.1"
+    use_when: [cage deformation, object conforming to animated surface]
+    do_not_use_when: [simple bend, static projection only]
+    prerequisites: [valid bind state, enclosing cage or source surface]
+    primary_system: Mesh Deform or Surface Deform
+    alternatives: [Lattice, Armature]
+    failure_signs: [bind failure, cage inversion, lagging surface]
+    validation: [full-range pose test, bind report]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/mesh_deform.html"]
+
+  - id: shrinkwrap
+    category: deformation
+    supported_versions: ">=5.1"
+    use_when: [surface conformity, retopology projection, fitted secondary part]
+    do_not_use_when: [volume fusion, collision response]
+    prerequisites: [target normals, projection direction, offset policy]
+    primary_system: Shrinkwrap Modifier
+    alternatives: [Surface Deform, raycast Geometry Nodes]
+    failure_signs: [backface projection, spikes, z-fighting]
+    validation: [surface distance distribution, offset check]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/shrinkwrap.html"]
+
+  - id: precision_snapping
+    category: assembly
+    supported_versions: ">=5.1"
+    use_when: [one-time exact placement, modular grid alignment, vertex edge face or connector contact]
+    do_not_use_when: [relationship must remain live, attachment still needs a physical interface, deforming surface]
+    prerequisites: [source active element, target, snap element and base, pivot, orientation, axes, offset]
+    primary_system: Blender 3D View snapping and measured transform placement
+    alternatives: [Shrinkwrap, Surface Deform, constraints, exact numeric transform]
+    failure_signs: [eyeballed gap, wrong active element, flipped orientation, transform drift, protected tool settings left changed]
+    validation: [measured gap, orientation, target ownership, tool-setting restoration]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/editors/3dview/controls/snapping.html"
+      - "https://docs.blender.org/api/current/bpy.types.ToolSettings.html#bpy.types.ToolSettings.snap_elements"
+
+  - id: displace_surface
+    category: modeling
+    supported_versions: ">=5.1"
+    use_when: [editable geometric relief, terrain height field, silhouette-affecting sampled surface]
+    do_not_use_when: [microscopic response only, insufficient topology, irregular hero damage needing sculpt]
+    prerequisites: [real scale, sufficient source density, declared texture coordinates, direction, midlevel and strength]
+    primary_system: Subdivision and Displace Modifier
+    alternatives: [material displacement, Bump or Normal, Multires Sculpt, Geometry Nodes]
+    failure_signs: [faceted relief, undeclared coordinates, self-intersection, collapsed thickness, strength used to hide poor topology]
+    validation: [evaluated vertex movement, silhouette, self-intersection, wall thickness, coordinate and stack report]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/displace.html"
+      - "https://docs.blender.org/api/current/bpy.types.DisplaceModifier.html"
+
+  - id: armature_constraints
+    category: rigging
+    supported_versions: ">=5.1"
+    use_when: [reusable articulation, character deformation, mechanical linkage]
+    do_not_use_when: [uncontrolled physics response]
+    prerequisites: [rest pose, hierarchy, weights or rigid parenting]
+    primary_system: Armature, Constraints, and Drivers
+    alternatives: [Shape Keys, Rigid Body Constraints]
+    failure_signs: [weight collapse, cyclic dependency, limit violation]
+    validation: [pose range, dependency graph, clearance check]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/animation/armatures/index.html"]
+
+  - id: cloth
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [thin flexible sheet, drape, garment, flag]
+    do_not_use_when: [elastic solid volume, manually directed rigid panel]
+    prerequisites: [uniform mesh, scale, collision objects, pin policy]
+    primary_system: Cloth Physics
+    alternatives: [Cloth Filter, Soft Body]
+    failure_signs: [penetration, explosive stretch, self-collision noise]
+    validation: [short cache test, penetration and stretch checks]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/cloth/index.html"]
+
+  - id: soft_body
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [spring-like elastic deformation, jelly, soft prop]
+    do_not_use_when: [thin cloth, rigid collision]
+    prerequisites: [edge network, goal weights, collision roles]
+    primary_system: Soft Body Physics
+    alternatives: [Cloth pressure, shape keys]
+    failure_signs: [volume collapse, oscillation, tunneling]
+    validation: [bounded displacement, damping and collision test]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/soft_body/index.html"]
+
+  - id: rigid_body
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [falling, rolling, stacking, impact, hard debris]
+    do_not_use_when: [continuous deformation, welded static geometry]
+    prerequisites: [active/passive roles, scale, mass, collision shape]
+    primary_system: Rigid Body World
+    alternatives: [keyframed motion, Geometry Nodes simulation]
+    failure_signs: [tunneling, jitter, energy gain, sleeping too early]
+    validation: [velocity bounds, penetration, stable stack]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/rigid_body/index.html"]
+
+  - id: rigid_body_constraints
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [hinge, slider, breakable joint, mechanical physics]
+    do_not_use_when: [skinned character deformation]
+    prerequisites: [rigid body participants, aligned pivots, limit policy]
+    primary_system: Rigid Body Constraints
+    alternatives: [object constraints, armature]
+    failure_signs: [joint explosion, wrong axes, limit chatter]
+    validation: [limit sweep, break threshold test]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/rigid_body/constraints/index.html"]
+
+  - id: fluid
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [liquid flow, smoke, fire, spray, volumetric interaction]
+    do_not_use_when: [deep-water background ocean only]
+    prerequisites: [domain, flow, effector, cache directory, scale]
+    primary_system: Fluid Simulation
+    alternatives: [Ocean, shader volume, particles]
+    failure_signs: [empty domain, leaking collider, insufficient resolution]
+    validation: [domain cache, bounds, frame sample review]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/fluid/index.html"]
+
+  - id: water_material
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [static contained water, puddle, pool surface, thin wetness film]
+    do_not_use_when: [pouring, splashing, changing liquid volume]
+    prerequisites: [declared water geometry class, contact and waterline policy, active render engine]
+    primary_system: Closed liquid volume plus Principled transmission and optional Volume Absorption
+    alternatives: [Ocean, Wave, Dynamic Paint, Fluid]
+    failure_signs: [reflective plane presented as volume, black absorption, floating contact edge, double waves]
+    validation: [closed volume, IOR transmission roughness, absorption scale, contact, macro and micro wave ownership]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/principled.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/volume_absorption.html"
+
+  - id: dynamic_paint
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [surface wet maps, footprints, ripples, proximity response]
+    do_not_use_when: [full volumetric liquid]
+    prerequisites: [canvas and brush roles, UV or vertex output]
+    primary_system: Dynamic Paint
+    alternatives: [Geometry Nodes proximity, Fluid]
+    failure_signs: [missing canvas output, low resolution, stale cache]
+    validation: [output map and frame response]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/dynamic_paint/index.html"]
+
+  - id: ocean
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [large deep-water macro surface, foam data]
+    do_not_use_when: [container liquid, shoreline interaction alone]
+    prerequisites: [scene scale, spectrum, repeat and foam policy]
+    primary_system: Ocean Modifier
+    alternatives: [Fluid, Geometry Nodes, shader displacement]
+    failure_signs: [wrong scale, tiled repetition, missing foam attribute]
+    validation: [wave scale, horizon coverage, foam output]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/physics/ocean.html"]
+
+  - id: wave
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [local regular ripple, propagating surface displacement]
+    do_not_use_when: [deep-water spectrum, full liquid interaction]
+    prerequisites: [surface subdivision, origin, texture coordinates]
+    primary_system: Wave Modifier
+    alternatives: [Dynamic Paint, shader displacement]
+    failure_signs: [faceting, wrong direction, uniform mechanical look]
+    validation: [wave propagation and mesh density]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/deform/wave.html"]
+
+  - id: particles_and_boids
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [emission lifecycle, flocking, schools, swarms]
+    do_not_use_when: [static regular array, hair workflow requiring new Hair objects]
+    prerequisites: [runtime availability, emitter, render instance, force fields]
+    primary_system: Particle System or Boids
+    alternatives: [Geometry Nodes instances, Simulation Zone]
+    failure_signs: [deprecated hair path, synchronized motion, excessive object conversion]
+    validation: [particle count, lifecycle, collision and behavior review]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/physics/particles/index.html"]
+
+  - id: fracture
+    category: simulation
+    supported_versions: ">=5.1"
+    use_when: [breaking solid object, collapse, impact debris]
+    do_not_use_when: [decorative static cracks only]
+    prerequisites: [closed source, extension availability check, interior material]
+    primary_system: Fracture geometry plus Rigid Bodies
+    alternatives: [Geometry Nodes Voronoi workflow, authored fracture cells]
+    failure_signs: [uniform chunks, missing interior faces, unstable debris]
+    validation: [piece distribution, rigid stability, interior material]
+    official_sources: ["https://extensions.blender.org/add-ons/cell-fracture/"]
+
+  - id: array_instances
+    category: procedural
+    supported_versions: ">=5.1"
+    use_when: [regular repetition, modular linear or radial pattern]
+    do_not_use_when: [irregular field scatter]
+    prerequisites: [source origin, spacing, count or fit policy]
+    primary_system: Array Modifier or linked instances
+    alternatives: [Geometry Nodes]
+    failure_signs: [applied duplicate explosion, origin drift]
+    validation: [count, spacing, transform consistency]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/modifiers/generate/array.html"]
+
+  - id: geometry_nodes_instances
+    category: procedural
+    supported_versions: ">=5.1"
+    use_when: [large scatter, field-controlled instances, reusable procedural layout]
+    do_not_use_when: [single native modifier operation]
+    prerequisites: [source collection, domain, stable IDs, seed]
+    primary_system: Geometry Nodes Instances
+    alternatives: [particles, linked duplicates]
+    failure_signs: [early realization, unstable random animation, unreadable graph]
+    validation: [instance and realized counts, node layout, performance]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/instances/index.html"]
+
+  - id: geometry_nodes_simulation
+    category: procedural
+    supported_versions: ">=5.1"
+    use_when: [stateful custom motion, accumulation, field-driven behavior]
+    do_not_use_when: [dedicated native physics solver fits better]
+    prerequisites: [simulation state schema, delta time, stable IDs, cache policy]
+    primary_system: Geometry Nodes Simulation Zone
+    alternatives: [particles, rigid body, keyframes]
+    failure_signs: [frame-order dependence, lost attributes, unbaked render]
+    validation: [cache, substeps, deterministic replay]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/simulation/simulation_zone.html"]
+
+  - id: inverted_hull_outline
+    category: npr_stylization
+    supported_versions: ">=5.1"
+    use_when: [animated character silhouette, real-time anime outline, object-space line that follows deformation]
+    do_not_use_when: [scene-wide occlusion lines, intersection lines, crease-only technical drawing]
+    prerequisites: [evaluated smooth surface, engine-aware face culling, dedicated outline material, scale-aware width]
+    primary_system: Geometry Nodes extruded and flipped outline shell
+    alternatives: [Grease Pencil Line Art, Freestyle, Solidify inverted hull]
+    failure_signs: [camera-distance-dependent width, shell intersections, facial-feature halos, missing culling, noisy global offset]
+    validation: [front and profile silhouettes, near and far camera tests, deformation test, culling and material audit]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/mesh/operations/extrude_mesh.html"
+      - "https://docs.blender.org/manual/en/5.2/modeling/geometry_nodes/mesh/operations/flip_faces.html"
+      - "https://docs.blender.org/manual/en/5.2/render/eevee/material_settings.html#bpy-types-material-use-backface-culling"
+
+  - id: camera_line_art
+    category: npr_stylization
+    supported_versions: ">=5.1"
+    use_when: [camera-aware contour, crease line, material boundary, intersection line, occlusion-aware drawing]
+    do_not_use_when: [simple real-time character hull, line must exist as ordinary mesh geometry]
+    prerequisites: [source collection, active camera, line categories, stroke material and thickness policy]
+    primary_system: Grease Pencil Line Art or Freestyle
+    alternatives: [inverted hull outline, compositor edge detection]
+    failure_signs: [flickering chains, unwanted hidden lines, unstable intersections, excessive crease density]
+    validation: [occlusion test, line-category isolation, temporal stability, output-resolution test]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/grease_pencil/modifiers/generate/line_art.html"
+      - "https://docs.blender.org/manual/en/5.2/render/freestyle/introduction.html"
+
+  - id: cycles_raycast_outline
+    category: npr_stylization
+    supported_versions: ">=5.2"
+    use_when: [Cycles material silhouette, camera-plane outline mask, 3D-to-2D Cycles look]
+    do_not_use_when: [Eevee real-time outline, scene-wide crease or intersection extraction, Blender older than 5.2]
+    prerequisites: [Cycles engine, ShaderNodeRaycast availability, active camera, scale-aware width, bounded ray length]
+    primary_system: Four camera-plane-offset Shader Raycast samples multiplied into an outline mask
+    alternatives: [inverted-hull outline, Grease Pencil Line Art, Freestyle, compositor edge detection]
+    failure_signs: [false hits from neighboring objects, width drift with distance, thin-part loss, concavity artifacts, excessive render cost]
+    validation: [four offset audit, local-only policy, near and far cameras, thin geometry, concavity, temporal stability, render cost]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/input/raycast.html"
+      - "https://docs.blender.org/api/current/bpy.types.ShaderNodeRaycast.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/converter/vector_transform.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/toon.html"
+
+  - id: toon_shader_banding
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [cel-shaded light bands, anime color steps, stylized shadow palette]
+    do_not_use_when: [true silhouette line, geometry deformation, Cycles pipeline using Shader to RGB]
+    prerequisites: [render-engine decision, controlled lights, palette ramp, material-space noise policy]
+    primary_system: Eevee Shader to RGB and Color Ramp
+    alternatives: [Toon BSDF, light-vector math, compositor grading]
+    failure_signs: [engine incompatibility, crawling high-frequency noise, uncontrolled banding, color input connected as shader by accident]
+    validation: [engine audit, light rotation test, palette-step review, animation stability]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/color/shader_to_rgb.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/toon.html"
+
+  - id: shader_nodes
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [color, roughness, bump, normal, emission, microscopic variation]
+    do_not_use_when: [silhouette-changing geometry, physical movement]
+    prerequisites: [UV or coordinates, material role, scale]
+    primary_system: Shader Nodes
+    alternatives: [baked textures, geometry displacement]
+    failure_signs: [uniform roughness, wrong scale, color-space error]
+    validation: [node graph, map color spaces, material review lighting]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/render/shader_nodes/index.html"]
+
+  - id: metal_material
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [bare metal, brushed steel, coated metal, rust, oxide, machined surface]
+    do_not_use_when: [geometry connection, structural deformation]
+    prerequisites: [material state, real scale, UV or tangent direction, review lighting]
+    primary_system: Principled BSDF with conductor dielectric layering and directional mapping
+    alternatives: [image PBR set, custom layered shader]
+    failure_signs: [plastic metal, uniform roughness, wrong anisotropy direction, decorative rust noise]
+    validation: [metal coating separation, roughness response, tangent direction, grazing reflection]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/render/shader_nodes/shader/principled.html"]
+
+  - id: wood_material
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [wood, timber, boards, planks, aged wood, wet or rotten wood]
+    do_not_use_when: [major broken silhouette or structural board variation]
+    prerequisites: [board geometry, directional UVs, real grain scale, end-grain policy]
+    primary_system: UV-mapped PBR or layered procedural wood with board-specific variation
+    alternatives: [triplanar background wood, baked material]
+    failure_signs: [grain across board width, repeated knots, no end grain, black uniform wetness]
+    validation: [UV direction, texture scale, end grain, roughness hierarchy, board variation, wetness causes]
+    official_sources:
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/input/texture_coordinate.html"
+      - "https://docs.blender.org/manual/en/5.2/render/shader_nodes/vector/displacement.html"
+
+  - id: material_surfacing
+    category: shading
+    supported_versions: ">=5.1"
+    use_when: [physically based material, realistic surface response, layered aging]
+    do_not_use_when: [time-dependent physical motion, silhouette construction]
+    prerequisites: [material identity, real scale, mapping route, final engine]
+    primary_system: Shader Nodes with UV mapping and scale-aware PBR channels
+    alternatives: [image PBR set, baked material, geometry displacement]
+    failure_signs: [base color only, one noise drives all channels, wrong map color spaces]
+    validation: [mapping scale, channel roles, color spaces, layer causes, neutral review lighting]
+    official_sources: ["https://docs.blender.org/manual/en/5.2/render/shader_nodes/index.html"]

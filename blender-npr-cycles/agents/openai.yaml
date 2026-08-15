@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Cycles 三渲二"
+  short_description: "Cycles 光线投射描边与卡通材质验证流程"
+  default_prompt: "Use $blender-npr-cycles to build and validate a Cycles 3D-to-2D raycast outline workflow."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender 参考与空间重建"
+  short_description: "从参考图推理空间连接、相机、材质与可验证重建流程"
+  default_prompt: "Use $blender-reference-reconstruction to infer a coherent spatial hypothesis, solve the camera, and reconstruct this reference through measurable gates."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Eevee 三渲二"
+  short_description: "Eevee 卡通色阶与反向外壳几何节点描边"
+  default_prompt: "Use $blender-npr-eevee to build and validate an Eevee toon-shading and inverted-hull outline workflow."

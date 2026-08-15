@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Procedural Systems"
+  short_description: "Build Array, curve-profile, instance, and field systems"
+  default_prompt: "Use -procedural-systems to generate dependent Blender structures with Array, curves, instances, or fields from semantic source parameters."

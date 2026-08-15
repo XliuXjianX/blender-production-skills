@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "suite_name": "blender-production-suite",
+  "purpose": "A single container for the active Blender production skill stack.",
+  "entry_skill": "blender-production-router",
+  "skills": [
+    {
+      "name": "blender-production-router",
+      "role": "Sole authority for task routing, production stages, retry budgets, rollback targets, official documentation retrieval, native-generator comparison, and artifact contracts."
+    },
+    {
+      "name": "blender-local-asset-library",
+      "role": "Read-only discovery and background inspection of explicitly requested local Blender node assets; never owns route, stage, import, or validation decisions."
+    },
+    {
+      "name": "blender-scene-design",
+      "role": "Visual thesis, focal hierarchy, depth layers, visual flow, scale and repetition rhythm, camera mobility, representation fidelity, performance budgets, and local design repair intent without Blender mutation or route authority."
+    },
+    {
+      "name": "blender-reference-reconstruction",
+      "role": "Reference-image evidence, spatial-region and portal hypotheses, provisional camera solving, scale and hidden-space reasoning, material identity, uncertainty control, and measurable convergence gates."
+    },
+    {
+      "name": "blender-direct-surface-modeling",
+      "role": "Direct mesh, BMesh, subdivision, Boolean architectural openings, Displace relief, remesh, sculpt, retopology, and connection construction."
+    },
+    {
+      "name": "blender-assembly-structure",
+      "role": "Manufacturing-based Part Graphs, object boundaries, seams, mating interfaces, pivots, modular grids, precision snapping, constraints, hierarchy, and assembly validation."
+    },
+    {
+      "name": "blender-deformation-rigging",
+      "role": "Native deformation modifiers, armatures, shape keys, constraints, and drivers."
+    },
+    {
+      "name": "blender-simulation-effects",
+      "role": "Cloth, soft body, rigid body, fluids, dynamic paint, ocean, waves, particles, boids, forces, and fracture routing."
+    },
+    {
+      "name": "blender-procedural-systems",
+      "role": "Array-driven stairs and modules, curve-profile generation, instancing, Geometry Nodes, repeat/simulation zones, scattering, and crowd systems."
+    },
+    {
+      "name": "blender-geometry-nodes-studio",
+      "role": "Dedicated Geometry Nodes graph construction, layout, source-asset gating, evaluated topology, instancing, and simulation-zone validation."
+    },
+    {
+      "name": "blender-material-surfacing",
+      "role": "PBR mapping, metal, wood, water, wetness, layered aging, displacement, and material-response validation."
+    },
+    {
+      "name": "blender-lighting-analysis",
+      "role": "Reference-light inference, accountable Sun and World gray-light passes, source justification, and production-light validation."
+    },
+    {
+      "name": "blender-npr-eevee",
+      "role": "Eevee Shader-to-RGB toon bands and deformation-following inverted-hull Geometry Nodes outlines."
+    },
+    {
+      "name": "blender-npr-cycles",
+      "role": "Blender 5.2+ Cycles four-direction Shader Raycast silhouettes and Cycles-compatible toon shading."
+    },
+    {
+      "name": "blender-geometry-validation",
+      "role": "Geometry, surface, connection, collision, simulation, performance, and protected-scene validation."
+    }
+  ],
+  "discovery": {
+    "layout": "nested-skills",
+    "skill_entrypoint": "SKILL.md",
+    "expected_skill_count": 15
+  },
+  "legacy_backup": "C:\\Users\\Administrator\\.codex\\skills-backup\\20260805-002546-topology-first-full-suite",
+  "pre_progressive_analysis_backup": "C:\\Users\\Administrator\\.codex\\skills-backup\\20260805-013141-pre-progressive-analysis",
+  "pre_construction_method_routing_backup": "C:\\Users\\Administrator\\.codex\\skills-backup\\20260805-030012-pre-construction-method-routing",
+  "pre_scene_design_native_contract_backup": "C:\\Users\\Administrator\\.codex\\skills-backup\\20260806-223000-pre-scene-design-native-contract"
+}
